@@ -1,51 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addToFavorites } from '../Redux/favoritesSlice';
+import { addToCart } from '../Redux/cartSlice';
 
 function Modal({ design, onClose }) {
-  const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
 
   const handleAddToFavorites = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    localStorage.setItem('favorites', JSON.stringify([...favorites, design]));
-    setMessage('Added to Favorites!');
+    dispatch(addToFavorites({ image: design.image, name: design.name, description: design.description }));
   };
 
   const handleAddToCart = () => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    localStorage.setItem('cart', JSON.stringify([...cart, design]));
-    setMessage('Added to Cart!');
+    dispatch(addToCart({ image: design.image, name: design.name, description: design.description }));
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="relative p-6 bg-white rounded-lg shadow-lg w-96">
         <button
-          className="absolute top-2 right-2 text-gray-600 hover:text-black"
+          className="absolute text-gray-600 top-2 right-2 hover:text-black"
           onClick={onClose}
         >
           &times;
         </button>
         <img
-          src={`http://127.0.0.1:5000/static/${design.image}`}
+          src={design.image}
           alt={design.name}
-          className="w-full h-48 object-cover rounded"
+          className="object-cover w-full h-48 rounded"
         />
-        <h3 className="text-xl font-bold mt-4">{design.name}</h3>
-        <p className="text-gray-600 mt-2">{design.description}</p>
-        <div className="mt-4 flex justify-between">
+        <h3 className="mt-4 text-xl font-bold">{design.name}</h3>
+        <p className="mt-2 text-gray-600">{design.description}</p>
+        <div className="flex justify-between mt-4">
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded shadow"
+            className="px-4 py-2 text-white bg-blue-500 rounded shadow"
             onClick={handleAddToFavorites}
           >
             Add to Favorites
           </button>
           <button
-            className="bg-green-500 text-white px-4 py-2 rounded shadow"
+            className="px-4 py-2 text-white bg-green-500 rounded shadow"
             onClick={handleAddToCart}
           >
             Add to Cart
           </button>
         </div>
-        {message && <p className="text-green-600 mt-4">{message}</p>}
       </div>
     </div>
   );

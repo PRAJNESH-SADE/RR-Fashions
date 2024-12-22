@@ -7,15 +7,15 @@ function DesignCard({ design }) {
   return (
     <div>
       <div
-        className="border rounded-lg shadow-lg p-4 cursor-pointer"
+        className="p-4 border rounded-lg shadow-lg cursor-pointer"
         onClick={() => setIsModalOpen(true)}
       >
         <img
-          src={`http://127.0.0.1:5000/static/${design.image}`}
+          src={design.image}
           alt={design.name}
-          className="w-full h-40 object-cover rounded"
+          className="object-cover w-full h-40 rounded"
         />
-        <h3 className="text-lg font-bold mt-2">{design.name}</h3>
+        <h3 className="mt-2 text-lg font-bold">{design.name}</h3>
       </div>
       {isModalOpen && (
         <Modal

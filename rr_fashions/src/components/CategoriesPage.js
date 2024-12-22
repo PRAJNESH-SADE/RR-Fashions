@@ -1,36 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import DesignCard from './DesignCard';
 
 function CategoriesPage() {
-  const [designs, setDesigns] = useState([]);
-  const [filteredDesigns, setFilteredDesigns] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('Trend');
+  const staticCategories = [
+    { name: 'Floral', image: '/images/floral.jpg' },
+    { name: 'Animals', image: '/images/animal.jpg' },
+    { name: 'Mirror Work', image: '/images/mirror.jpg' },
+    { name: 'Zari', image: '/images/zari.jpg' },
+  ];
 
-  useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/designs')
-      .then((response) => response.json())
-      .then((data) => {
-        setDesigns(data);
-        setFilteredDesigns(data.filter((design) => design.category === 'Trend'));
-      });
-  }, []);
+  const [activeCategory, setActiveCategory] = useState('Floral');
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
-    setFilteredDesigns(category === 'Trend' ? designs : designs.filter((design) => design.category === category));
   };
 
+  const filteredDesigns = staticCategories.filter(
+    (category) => category.name === activeCategory
+  );
+
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
+
       <div className="flex">
-        <Sidebar activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
-        <main className="p-4 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {filteredDesigns.map((design) => (
-            <DesignCard key={design.id} design={design} />
-          ))}
+        <Sidebar
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+        />
+
+        <main className="grid w-full grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3">
+          {filteredDesigns.length > 0 ? (
+            filteredDesigns.map((category, index) => (
+              <DesignCard
+                key={index}
+                design={{ name: category.name, image: category.image }}
+              />
+            ))
+          ) : (
+            <div className="text-center text-gray-500 col-span-full">
+              No designs available for this category.
+            </div>
+          )}
         </main>
       </div>
     </div>

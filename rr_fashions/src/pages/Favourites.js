@@ -1,31 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromFavorites } from '../Redux/favoritesSlice';
 
-function Favorites() {
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    setFavorites(savedFavorites);
-  }, []);
+const Favorites = () => {
+  const favorites = useSelector((state) => state.favorites.items);
+  const dispatch = useDispatch();
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Favorites</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {favorites.map((design, index) => (
-          <div key={index} className="border rounded-lg shadow-lg p-4">
-            <img
-              src={`http://127.0.0.1:5000/static/${design.image}`}
-              alt={design.name}
-              className="w-full h-40 object-cover rounded"
-            />
-            <h3 className="text-lg font-bold mt-2">{design.name}</h3>
-            <p className="text-gray-600 mt-1">{design.description}</p>
-          </div>
-        ))}
+    <div className="min-h-screen p-4 bg-gray-100">
+      <h2 className="mb-4 text-2xl font-bold">Favorites</h2>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {favorites.length > 0 ? (
+          favorites.map((design) => (
+            <div key={design.name} className="p-4 bg-white border rounded-lg shadow-md">
+              <img
+                src={design.image}
+                alt={design.name}
+                className="object-cover w-full h-48 mb-4 rounded"
+              />
+              <h3 className="font-bold">{design.name}</h3>
+              <p className="text-gray-600">{design.description}</p>
+              <button
+                onClick={() => dispatch(removeFromFavorites(design))}
+                className="mt-4 text-red-500 hover:text-red-700"
+              >
+                Remove from Favorites
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No items in favorites.</p>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default Favorites;
