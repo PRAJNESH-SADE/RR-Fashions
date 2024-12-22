@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "category": "Trend",
+        "name": "Trendy Floral Design",
+        "image": "floral.jpg",
+        "description": "A modern take on floral patterns with vibrant colors."
+    },
+    {
+        "id": 2,
+        "category": "Trend",
+        "name": "Trendy Animal Design",
+        "image": "animals.jpg",
+        "description": "Trendy animal-inspired embroidery design."
+    },
+    {
+        "id": 3,
+        "category": "Trend",
+        "name": "Trendy Mirror Work Design",
+        "image": "mirrorwork.jpg",
+        "description": "Reflective mirror work with intricate patterns."
+    },
+    {
+        "id": 4,
+        "category": "Trend",
+        "name": "Trendy Zari Work",
+        "image": "zari.jpg",
+        "description": "Elegant zari embroidery with gold threads."
+    },
+    {
+        "id": 5,
+        "category": "Floral",
+        "name": "Floral Design",
+        "image": "floral.jpg",
+        "description": "Beautiful floral patterns inspired by nature."
+    },
+    {
+        "id": 6,
+        "category": "Animals",
+        "name": "Animal Design",
+        "image": "animals.jpg",
+        "description": "Animal patterns with intricate embroidery."
+    },
+    {
+        "id": 7,
+        "category": "Mirror Work",
+        "name": "Mirror Work Design",
+        "image": "mirrorwork.jpg",
+        "description": "Intricate mirror embroidery with a modern touch."
+    },
+    {
+        "id": 8,
+        "category": "Zari",
+        "name": "Zari Work Design",
+        "image": "zari.jpg",
+        "description": "Classic zari work with a rich finish."
+    }
+]
